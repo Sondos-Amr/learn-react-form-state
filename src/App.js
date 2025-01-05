@@ -33,6 +33,12 @@ function App() {
   function handleDeleteClick(id) {
     setSkills(skills.filter((skill) => skill.id !== id));
   }
+  function handleEditClick(id) {
+    let updatedSkills = skills.map((skill) =>
+      skill.id === id ? { ...skill, skill: skill.skill + "44" } : skill
+    );
+    setSkills(updatedSkills);
+  }
 
   return (
     <div className="App">
@@ -132,6 +138,13 @@ function App() {
                   }}
                 >
                   Delete
+                </button>
+                <button
+                  onClick={() => {
+                    handleEditClick(skill.id);
+                  }}
+                >
+                  Edit
                 </button>
               </li>
             ))}
