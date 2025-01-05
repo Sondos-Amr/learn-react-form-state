@@ -1,4 +1,5 @@
 import { useState } from "react";
+let nextId = 4;
 function App() {
   const [formInputs, setFormInputs] = useState({
     name: "",
@@ -24,13 +25,13 @@ function App() {
     },
   ]);
   const country = ["Egypt", "Risa", "USA"];
-
   function handleAddClick() {
-    setSkills([...skills, { id: 5, skill: formInputs.skills }]);
+    setSkills([...skills, { id: nextId, skill: formInputs.skills }]);
+    nextId = nextId + 1;
   }
 
-  function handleDeleteClick() {
-    // alert(" أحلى واحده ف البنات تاتا ربتا تاتا تاتا تاااه  😌 ");
+  function handleDeleteClick(id) {
+    setSkills(skills.filter((skill) => skill.id !== id));
   }
 
   return (
@@ -42,9 +43,6 @@ function App() {
             type="text"
             value={formInputs.name}
             onChange={(e) => {
-              // const newFormInputs = { ...formInputs };
-              // newFormInputs.name = e.target.value;
-              // setFormInputs(newFormInputs);
               setFormInputs({ ...formInputs, name: e.target.value });
             }}
           />
@@ -55,9 +53,6 @@ function App() {
             type="text"
             value={formInputs.email}
             onChange={(e) => {
-              // const newFormInputEmail = { ...setFormInputs };
-              // newFormInputEmail.email = e.target.value;
-              // setFormInputs(newFormInputEmail);
               setFormInputs({ ...formInputs, email: e.target.value });
             }}
           />
@@ -131,7 +126,13 @@ function App() {
             {skills.map((skill) => (
               <li key={skill.id}>
                 {skill.skill}{" "}
-                <button onClick={handleDeleteClick}>Delete</button>
+                <button
+                  onClick={() => {
+                    handleDeleteClick(skill.id);
+                  }}
+                >
+                  Delete
+                </button>
               </li>
             ))}
           </ul>
